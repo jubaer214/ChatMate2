@@ -15,6 +15,8 @@ import cloudinary
 from cloudinary.uploader import upload
 from cloudinary.utils import cloudinary_url
 
+
+
 # Load environment variables
 load_dotenv()
 
@@ -48,6 +50,16 @@ bcrypt = Bcrypt(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+
+
+
+
+
+
+#for 4no requirement
+# Load CSV Data
+CSV_URL = "https://raw.githubusercontent.com/connect2robiul/CSVfile/master/RafigCovid_19.csv"
+df = pd.read_csv(CSV_URL)
 
 
 
