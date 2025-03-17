@@ -1,0 +1,288 @@
+/* General Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #cce6f7, #a8d8f0); /* Gradient background */
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between; /* Left and Right Alignment */
+    align-items: center;
+    padding: 15px 30px; 
+    background-color: rgba(112, 191, 243, 0.9); /* Semi-transparent background */
+    backdrop-filter: blur(10px); /* Blur effect for glossy look */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar .logo h1 {
+    margin: 0;
+    font-size: 32px;
+    color: #fff;
+    font-weight: 600;
+    text-align: left; /* Aligning logo to the left */
+}
+
+.navbar .login-btn {
+    background-color: #70bff3;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.navbar .login-btn:hover {
+    background-color: #5aa8d8;
+}
+
+/* Main Container */
+.container {
+    display: flex;
+    flex: 1;
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 30px;
+    gap: 30px;
+}
+
+/* Welcome Section */
+.welcome-section {
+    flex: 1;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-section h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+.welcome-section p {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.8;
+    font-weight: 300;
+}
+
+/* Login Section */
+.login-section {
+    flex: 1;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.login-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    font-weight: bold;
+}
+
+.login-form input[type="email"],
+.login-form input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+    background-color: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(5px);
+    font-size: 16px;
+}
+
+.login-form button {
+    width: 100%;
+    padding: 15px;
+    background-color: #70bff3;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.login-form button:hover {
+    background-color: #5aa8d8;
+}
+
+.login-form label {
+    display: block;
+    margin: 10px 0;
+    color: #555;
+    font-size: 16px;
+}
+
+.login-form p {
+    margin: 10px 0;
+    text-align: center;
+    color: #555;
+    font-size: 16px;
+}
+
+.login-form a {
+    color: #70bff3;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-form a:hover {
+    text-decoration: underline;
+}
+
+/* Flash Messages */
+.flash-messages {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+}
+
+.alert {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+    font-size: 16px;
+}
+
+.alert-success {
+    color: #3c763d;
+    background-color: rgba(223, 240, 216, 0.9);
+    border: 1px solid #d6e9c6;
+}
+
+.alert-danger {
+    color: #a94442;
+    background-color: rgba(242, 222, 222, 0.9);
+    border: 1px solid #ebccd1;
+}
+
+/* Footer */
+.footer {
+    background-color: rgba(112, 191, 243, 0.9);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    margin-top: auto;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+/* Logout Button Styling */
+.btn-logout {
+    background: #f39c12;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 16px;
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 20px;
+    text-decoration: none;
+}
+
+.btn-logout:hover {
+    background: #e67e22;
+    transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .welcome-section,
+    .login-section {
+        padding: 20px;
+    }
+
+    .navbar .logo h1 {
+        font-size: 28px;
+    }
+
+    .login-form input[type="email"],
+    .login-form input[type="password"] {
+        padding: 12px;
+    }
+
+    .login-form button {
+        padding: 12px;
+    }
+
+    .footer {
+        padding: 15px;
+    }
+}
+
+/* Login Button */
+.navbar .login-btn {
+    background-color: #70bff3; /* Soft blue background */
+    color: #fff;
+    padding: 15px 30px; /* Increased padding for a larger button */
+    border-radius: 12px; /* Rounded corners for a more modern look */
+    font-size: 18px; /* Larger font size */
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none; /* Remove underline */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; /* Smooth hover and active effects */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for a 3D effect */
+    display: inline-block;
+}
+
+.navbar .login-btn:hover {
+    background-color: #5aa8d8; /* Slightly darker blue on hover */
+    transform: scale(1.1); /* Enlarge the button further on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* More prominent shadow on hover */
+}
+
+.navbar .login-btn:focus {
+    outline: none; /* Remove focus outline */
+    box-shadow: 0 0 0 4px rgba(112, 191, 243, 0.6); /* Blue glow around the button */
+}
+
+.navbar .login-btn:active {
+    background-color: #4e8fbf; /* Even darker blue when clicked */
+    transform: scale(1.05); /* Slightly reduce size when clicked */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow when clicked */
+}

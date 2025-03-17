@@ -1,0 +1,153 @@
+/* General Styling */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f6f7; /* Soft background */
+    color: #333; /* Dark text for readability */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    flex-direction: column;
+}
+
+h1 {
+    color: #333;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+/* Alert Styles */
+.alert {
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    font-size: 16px;
+    text-align: left;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.alert-danger {
+    color: #a94442;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+/* Form Container */
+form {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Input Field */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+label {
+    font-size: 16px;
+    color: #555;
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border 0.3s ease;
+    margin-bottom: 20px;
+}
+
+input[type="password"]:focus {
+    border-color: #70bff3;
+    outline: none;
+    box-shadow: 0 0 5px rgba(112, 191, 243, 0.5); /* Soft focus effect */
+}
+
+/* Buttons */
+button {
+    width: 100%;
+    padding: 15px;
+    background-color: #e43f3f;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 15px;
+}
+
+button:hover {
+    background-color: #c13434; /* Darker red for hover */
+}
+
+/* Secondary Button (Cancel) */
+a {
+    display: inline-block;
+    padding: 12px 25px;
+    font-size: 16px;
+    text-decoration: none;
+    background-color: #f4f4f4;
+    color: #333;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+a:hover {
+    background-color: #e6e6e6;
+    text-decoration: underline;
+}
+
+/* Back Link */
+a.back-link {
+    margin-top: 30px;
+    font-size: 16px;
+    color: #70bff3;
+    font-weight: 500;
+}
+
+a.back-link:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    form {
+        width: 90%;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    button, a {
+        font-size: 14px;
+        padding: 12px;
+    }
+}

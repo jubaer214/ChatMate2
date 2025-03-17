@@ -1,0 +1,31 @@
+<!-- list_permissions.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View All Permissions</title>
+</head>
+<body>
+    <h1>All Permissions</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Permission Name</th>
+                <th>Role ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for permission in permissions %}
+            <tr>
+                <td>{{ permission.id }}</td>
+                <td>{{ permission.permission_name }}</td>
+                <td>{{ permission.role_id }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('admin_dashboard') }}">Back to Dashboard</a>
+</body>
+</html>

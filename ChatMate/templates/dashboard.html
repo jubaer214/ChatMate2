@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>
+    <h2>Welcome to your Dashboard</h2>
+    <p>Hello, {{ current_user.name }}!</p>
+{% if not user.email_verified %}
+    <form action="{{ url_for('resend_verification') }}" method="post">
+        <input type="hidden" name="email" value="{{ user.email }}">
+        <button type="submit" class="btn btn-warning">Resend Verification Email</button>
+    </form>
+{% else %}
+    <p>Email Verified ✅</p>
+{% endif %}
+
+
+    <br>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>
