@@ -15,8 +15,30 @@ import cloudinary
 from cloudinary.uploader import upload
 from cloudinary.utils import cloudinary_url
 
+
+
+#4no requirement
+from flask import Flask, request, render_template
+import pandas as pd
+import requests
+import io
+import langdetect
+from langdetect import detect
+import matplotlib.pyplot as plt
+import base64
+from collections import Counter
+import langid
+import base64
+
+
 # Load environment variables
 load_dotenv()
+
+
+
+
+
+
 
 
 # Configure Cloudinary
@@ -25,6 +47,7 @@ cloudinary.config(
     api_key=os.getenv("CLOUDINARY_API_KEY"),
     api_secret=os.getenv("CLOUDINARY_API_SECRET")
 )
+
 
 # Supabase configuration
 SUPABASE_URL = os.getenv("SUPABASE_URL")
@@ -50,6 +73,55 @@ login_manager.init_app(app)
 login_manager.login_view = 'login'
 
 
+
+
+
+
+#4no requirement
+# URL of the CSV file
+CSV_URL = "https://raw.githubusercontent.com/connect2robiul/CSVfile/refs/heads/master/RafigCovid_19.csv"
+
+@app.route('/statuses')
+def statuses():
+    # Read CSV with correct separator
+    df = pd.read_csv(CSV_URL, sep=";", encoding="utf-8")
+
+    # Print column names for debugging
+    print("Column Names:", df.columns)
+
+    # Detect the correct text column
+    text_columns = ["Tweet", "Message", "Text"]  # Possible column names
+    text_column = next((col for col in text_columns if col in df.columns), None)
+
+    if text_column is None:
+        return "No valid text column found!", 400
+
+    # Detect languages
+    df["language"] = df[text_column].astype(str).apply(langid.classify).apply(lambda x: x[0])
+
+    # Count occurrences
+    language_counts = df["language"].value_counts()
+
+    # Assign colors for visualization
+    unique_languages = language_counts.index.tolist()
+    color_map = plt.get_cmap("tab10")
+    language_colors = {lang: f"#{int(color_map(i)[0]*255):02x}{int(color_map(i)[1]*255):02x}{int(color_map(i)[2]*255):02x}" 
+                       for i, lang in enumerate(unique_languages)}
+
+    # Generate histogram
+    plt.figure(figsize=(10, 5))
+    language_counts.plot(kind="bar", color=[language_colors[lang] for lang in language_counts.index])
+    plt.xlabel("Language")
+    plt.ylabel("Frequency")
+    plt.title("Language Frequency Histogram")
+
+    # Convert histogram to base64 image
+    img_io = io.BytesIO()
+    plt.savefig(img_io, format="png")
+    img_io.seek(0)
+    histogram_img = base64.b64encode(img_io.getvalue()).decode()
+
+    return render_template("statuses.html", languages=language_colors, histogram_img=histogram_img)
 
 '''
 #testing

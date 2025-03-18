@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Analysis</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; text-align: center; }
+        .container { max-width: 900px; margin: auto; }
+        .color-box { display: inline-block; width: 20px; height: 20px; margin-right: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 8px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #f2f2f2; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Language Analysis from CSV</h1>
+
+        <!-- ✅ Language Colors -->
+        <h2>Language Colors</h2>
+        <table>
+            <tr>
+                <th>Language Code</th>
+                <th>Color</th>
+                <th>Sample</th>
+            </tr>
+            {% for code, color in languages.items() %}
+            <tr>
+                <td>{{ code }}</td>
+                <td>{{ color }}</td>
+                <td><span class="color-box" style="background-color: {{ color }};"></span></td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <!-- ✅ Histogram Image -->
+        <h2>Language Frequency Histogram</h2>
+        <img src="data:image/png;base64,{{ histogram_img }}" alt="Language Histogram">
+    </div>
+</body>
+</html>
