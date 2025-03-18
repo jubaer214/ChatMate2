@@ -29,6 +29,7 @@ import base64
 from collections import Counter
 import langid
 import base64
+import seaborn as sns
 
 
 # Load environment variables
@@ -78,48 +79,60 @@ login_manager.login_view = 'login'
 
 
 #4no requirement
-# URL of the CSV file
-CSV_URL = "https://raw.githubusercontent.com/connect2robiul/CSVfile/refs/heads/master/RafigCovid_19.csv"
+# CSV File URL
+csv_url = "https://raw.githubusercontent.com/connect2robiul/CSVfile/refs/heads/master/RafigCovid_19.csv"
 
-@app.route('/statuses')
+def process_csv():
+    try:
+        # ✅ Read CSV with correct separator
+        df = pd.read_csv(csv_url, sep=";", encoding="utf-8", engine="python")
+
+        # ✅ Check column names
+        print("Column Names:", df.columns)
+
+        # ✅ Ensure the correct text column is used for language detection
+        text_column = "Tweet"  # Modify if necessary
+
+        if text_column not in df.columns:
+            raise ValueError(f"Column '{text_column}' not found in CSV!")
+
+        # ✅ Detect languages
+        df["language"] = df[text_column].astype(str).apply(lambda x: langid.classify(x)[0])
+
+        # ✅ Get unique languages & assign colors dynamically
+        unique_languages = df["language"].unique()
+        color_palette = sns.color_palette("husl", len(unique_languages))
+
+        language_colors = {
+            lang: "#{:02x}{:02x}{:02x}".format(int(r*255), int(g*255), int(b*255))
+            for lang, (r, g, b) in zip(unique_languages, color_palette)
+        }
+
+        # ✅ Generate histogram
+        plt.figure(figsize=(10, 5))
+        df["language"].value_counts().plot(kind="bar", color=[language_colors[lang] for lang in df["language"].unique()])
+        plt.xlabel("Language")
+        plt.ylabel("Count")
+        plt.title("Language Frequency Histogram")
+
+        # ✅ Convert plot to base64 image
+        img = io.BytesIO()
+        plt.savefig(img, format="png")
+        img.seek(0)
+        histogram_img = base64.b64encode(img.getvalue()).decode()
+
+        return df, language_colors, histogram_img
+
+    except Exception as e:
+        print(f"❌ Error: {e}")
+        return None, None, None
+
+@app.route("/statuses")
 def statuses():
-    # Read CSV with correct separator
-    df = pd.read_csv(CSV_URL, sep=";", encoding="utf-8")
+    df, language_colors, histogram_img = process_csv()
 
-    # Print column names for debugging
-    print("Column Names:", df.columns)
-
-    # Detect the correct text column
-    text_columns = ["Tweet", "Message", "Text"]  # Possible column names
-    text_column = next((col for col in text_columns if col in df.columns), None)
-
-    if text_column is None:
-        return "No valid text column found!", 400
-
-    # Detect languages
-    df["language"] = df[text_column].astype(str).apply(langid.classify).apply(lambda x: x[0])
-
-    # Count occurrences
-    language_counts = df["language"].value_counts()
-
-    # Assign colors for visualization
-    unique_languages = language_counts.index.tolist()
-    color_map = plt.get_cmap("tab10")
-    language_colors = {lang: f"#{int(color_map(i)[0]*255):02x}{int(color_map(i)[1]*255):02x}{int(color_map(i)[2]*255):02x}" 
-                       for i, lang in enumerate(unique_languages)}
-
-    # Generate histogram
-    plt.figure(figsize=(10, 5))
-    language_counts.plot(kind="bar", color=[language_colors[lang] for lang in language_counts.index])
-    plt.xlabel("Language")
-    plt.ylabel("Frequency")
-    plt.title("Language Frequency Histogram")
-
-    # Convert histogram to base64 image
-    img_io = io.BytesIO()
-    plt.savefig(img_io, format="png")
-    img_io.seek(0)
-    histogram_img = base64.b64encode(img_io.getvalue()).decode()
+    if df is None:
+        return "Error processing CSV file. Check logs."
 
     return render_template("statuses.html", languages=language_colors, histogram_img=histogram_img)
 
